@@ -10,6 +10,8 @@ internal interface NewsService {
     @GET("everything")
     suspend fun getNews(
         @Query("q") query: String,
-        @Query("apiKey") apiKey: String = API_KEY
+        @Query("pageSize") pageSize: Int = 5,
+        @Query("page") page: Int = 1,
+        @Query("apiKey") apiKey: String = API_KEY,
     ): NewsResponse
 }

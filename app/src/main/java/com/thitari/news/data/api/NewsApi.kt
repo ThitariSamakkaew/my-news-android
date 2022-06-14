@@ -6,7 +6,7 @@ import com.thitari.news.data.model.News
 import javax.inject.Inject
 
 interface NewsApi {
-    suspend fun getNews(query: String): News
+    suspend fun getNews(query: String, page: Int, pageSize: Int): News
 }
 
 internal class NewApiImpl @Inject constructor(
@@ -14,8 +14,8 @@ internal class NewApiImpl @Inject constructor(
     private val newsResponseToNewsMapper: NewsResponseToNewsMapper,
 ) : NewsApi {
 
-    override suspend fun getNews(query: String): News {
-        val newsResponse: NewsResponse = newsService.getNews(query)
+    override suspend fun getNews(query: String, page: Int, pageSize: Int): News {
+        val newsResponse: NewsResponse = newsService.getNews(query, page, pageSize)
         val news: News = newsResponseToNewsMapper.map(newsResponse)
         return news
     }
