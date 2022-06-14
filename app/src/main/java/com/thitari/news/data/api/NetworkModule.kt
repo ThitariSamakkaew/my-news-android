@@ -1,6 +1,7 @@
 package com.thitari.news.data.api
 
 import com.thitari.news.data.api.mapper.NewsResponseToNewsMapper
+import com.thitari.news.data.api.mapper.NewsResponseToNewsMapperImpl
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -20,12 +21,14 @@ internal abstract class NetworkModule {
 
     @Singleton
     @Binds
-    abstract fun bindNewsResponseToNewsMapper(impl: NewsResponseToNewsMapper): NewsResponseToNewsMapper
+    abstract fun bindNewsResponseToNewsMapper(impl: NewsResponseToNewsMapperImpl): NewsResponseToNewsMapper
 
     companion object {
         @Singleton
         @Provides
-        fun providesNewsService(): NewsService = Retrofit.Builder()
+
+        fun providesNewsService(): NewsService = Retrofit
+            .Builder()
             .baseUrl(NewApiImpl.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
